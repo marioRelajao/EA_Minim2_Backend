@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { handleHttp } from "../utils/error.handle";
-import { get_AllChallenges, get_Challenges, get_Challenge, get_ChallengeCount, add_Challenge, update_Challenge, 
+import { solve_Challenge, get_AllChallenges, get_Challenges, get_Challenge, get_ChallengeCount, add_Challenge, update_Challenge, 
     accept_Challenge, disable_Challenge, delete_Challenge } from "../services/challenge"; 
 
 const getAllChallenges = async (req:Request, res:Response) => {
@@ -95,6 +95,16 @@ const deleteChallenge = async ({params}:Request, res:Response) => {
         res.send(response);
     } catch(e){
         handleHttp(res, "ERROR_DELETE_CHALLENGE");
+    }
+};
+
+const solveChallenge = async ({params}:Request, res:Response) => {
+    try{
+        const {idChallenge, answer} = params;
+        const response = await solve_Challenge(idChallenge, answer);
+        res.send(response);
+    }catch(e){
+        handleHttp(res, "ERROR_ACCEPTING_CHALLENGE");
     }
 };
 

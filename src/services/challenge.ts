@@ -48,6 +48,14 @@ const accept_Challenge = async (idUser: string, idChallenge: string) => {
     return responseItem;
 };
 
+const solve_Challenge = async (idChallenge: string, answer: string) => {
+    const chall = await ChallengeModel.findById({_id: idChallenge}); 
+    if(chall!=null){
+        return "ERROR_CHALLENGE"
+    }    
+    return chall;
+};
+
 const disable_Challenge = async (idChallenge: string) => {
     const responseItem = await ChallengeModel.findByIdAndUpdate({_id: idChallenge}, 
         {active: false}, {new: true});
@@ -60,4 +68,4 @@ const delete_Challenge = async (idChallenge: string) => {
 };
 
 export{ get_AllChallenges, get_Challenges, get_Challenge, get_ChallengeCount, add_Challenge, 
-    update_Challenge, accept_Challenge, disable_Challenge, delete_Challenge };
+    update_Challenge, accept_Challenge, disable_Challenge, delete_Challenge, solve_Challenge };
